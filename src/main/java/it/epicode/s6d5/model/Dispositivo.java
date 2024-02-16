@@ -18,6 +18,8 @@ public class Dispositivo {
     @Enumerated(EnumType.STRING)
     private Disponibilita disponibilita;
 
+    private String marca;
+
     @ManyToOne
     @JoinColumn(name = "dispositivo_id")
     private Dipendente dipendente;

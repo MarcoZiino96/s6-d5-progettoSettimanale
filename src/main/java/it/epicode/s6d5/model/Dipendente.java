@@ -20,6 +20,8 @@ public class Dipendente {
 
     private String userName;
 
+    private String fotoProfilo;
+
     private String email;
 
     @JsonIgnore

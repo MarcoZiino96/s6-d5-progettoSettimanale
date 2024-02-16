@@ -4,7 +4,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
+
+@Data
 public class DipendenteRequest {
 
 
@@ -24,7 +27,6 @@ public class DipendenteRequest {
     @NotBlank(message = "Non puoi inserire spazi vuoti senza inserire lettere")
     @NotEmpty(message = "campo vuoto")
     private String userName;
-
 
     @Email(message = "Inserire email valida")
     @NotEmpty(message = "Campo Vuoto")
