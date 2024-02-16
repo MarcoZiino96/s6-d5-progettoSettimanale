@@ -32,12 +32,4 @@ public class CustomResponse {
         CustomResponse objectResponse = new CustomResponse(message, obj);
         return new ResponseEntity<>(objectResponse, httpStatus);
     }
-    public static ResponseEntity<CustomResponse> error(String message, HttpStatus httpStatus){
-        CustomResponse objectResponse = new CustomResponse(message);
-        return new ResponseEntity<>(objectResponse, httpStatus);
-    }
-    public static ResponseEntity<CustomResponse> error(HttpStatus httpStatus) {
-        CustomResponse objectResponse = new CustomResponse(httpStatus.toString());
-        return new ResponseEntity<>(objectResponse, httpStatus);
-    }
 }
