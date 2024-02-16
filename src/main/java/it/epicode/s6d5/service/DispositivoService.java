@@ -55,10 +55,11 @@ public class DispositivoService {
         Dispositivo dispositivo = getDispositivoById(idDispositivo);
         Dipendente dipendente = dipendenteService.getDipendenteById(idDipendente);
 
-       if (dispositivo.getDisponibilita() == Disponibilita.ASSEGNATO || dispositivo.getDisponibilita() == Disponibilita.IN_MANUTENZIONE){
+       if (dispositivo.getDisponibilita() == Disponibilita.ASSEGNATO){
            throw  new RuntimeException("questo dispositivo è gia assegnato ad un utente");
+       } else if (dispositivo.getDisponibilita() == Disponibilita.IN_MANUTENZIONE) {
+           throw  new RuntimeException("questo dispositivo è in manutenzione");
        }
-
         dispositivo.setDisponibilita(Disponibilita.ASSEGNATO);
         dispositivo.setDipendente(dipendente);
         return dispositivoRepository.save(dispositivo);

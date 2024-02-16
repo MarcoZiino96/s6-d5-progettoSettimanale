@@ -9,6 +9,8 @@ import it.epicode.s6d5.repository.DipendenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +18,10 @@ public class DipendenteService {
 
     @Autowired
     DipendenteRepository dipendenteRepository;
+
+    @Autowired
+    private JavaMailSenderImpl javaMailSender;
+
 
     public Page<Dipendente> getAllDipendente(Pageable pageable){return dipendenteRepository.findAll(pageable);}
 
@@ -29,8 +35,9 @@ public class DipendenteService {
 
         dipendente.setNome(dipendenteRequest.getNome());
         dipendente.setCognome(dipendenteRequest.getCognome());
-        dipendente.setEmail(dipendenteRequest.getEmail());
         dipendente.setUserName(dipendenteRequest.getUserName());
+        dipendente.setEmail(dipendenteRequest.getEmail());
+        sendMail(dipendenteRequest.getEmail());
 
         return dipendenteRepository.save(dipendente);
     }
@@ -55,5 +62,14 @@ public class DipendenteService {
         Dipendente dipendente = getDipendenteById(id);
         dipendente.setFotoProfilo(url);
         return  dipendenteRepository.save(dipendente);
+    }
+
+    private void sendMail(String email) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("Registrazione Servizio rest");
+        message.setText("Registrazione al servizio rest avvenuta con successo");
+
+        javaMailSender.send(message);
     }
 }
